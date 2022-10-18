@@ -13,6 +13,9 @@
       <link href="/css/style.css" rel="stylesheet">
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+      <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
       <title>4조 PROJECT</title>
     </head>
 
@@ -49,6 +52,23 @@
 
                   <a href="/emp/mypageInsertForm/${principal.employeeId}" class="btn_mypage">마이 페이지</a>
                   <a href="/co" class="btn_company">기업 서비스</a><!-- .btn_company -->
+                  <div id="alarmContainer">
+                    <button type="button"
+                      style="width: 20px; height: 20px; background: red; border-radius: 50%">1</button>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <table id="conversation" class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Notification</th>
+                            </tr>
+                          </thead>
+                          <tbody id="notification">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </c:otherwise>
               </c:choose>
             </div>
@@ -219,3 +239,13 @@
           </div>
         </div>
       </div>
+      <c:choose>
+        <c:when test="${!empty principal.employeeId}">
+          <input class="checkprinciple" type="hidden" value="${principal.employeeName}">
+        </c:when>
+        <c:when test="${!empty principal.companyId}">
+          <input class="checkprinciple" type="hidden" value="${principal.companyName}">
+        </c:when>
+      </c:choose>
+
+      <script src="/js/webSocket.js"></script>
